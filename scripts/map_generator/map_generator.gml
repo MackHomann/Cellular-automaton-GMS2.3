@@ -11,13 +11,19 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 	grid			= ds_grid_create(_width, _height);	
 	randomPersent	= clamp(_randPersent, 0, 100);
 	smoothCount		= _smoothCount
+	needRandomSeed	= (seed == -1);
 	
 	// if you set the seed to -1, it will generate a new seed for you
-	if (_seed = -1) {
-		seed = irandom_range(-9999999, 9999999);	
+	static checkSeed = function() {
+		if (needRandomSeed) {
+			randomize();
+			seed = irandom_range(-9999999, 9999999);	
+		}
 	}
 	
 	static generateMap = function() {
+		ds_grid_clear(grid, 0);
+		checkSeed();
 		randomFillMap();	
 		
 		for (var i = 0; i < smoothCount; ++i) {
