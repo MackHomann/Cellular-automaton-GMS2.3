@@ -12,6 +12,7 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 	randomPersent	= clamp(_randPersent, 0, 100);
 	smoothCount		= _smoothCount
 	
+	// if you set the seed to -1, it will generate a new seed for you
 	if (_seed = -1) {
 		seed = irandom_range(-9999999, 9999999);	
 	}
@@ -24,6 +25,7 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 		}
 	}
 	
+	//randomly fills maps with walls or air
 	static randomFillMap = function() {
 		log("Starting random fill script......");
 		random_set_seed(seed);
@@ -36,6 +38,7 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 		
 		for (var _y = 0; _y < height; ++_y) {
 		    for (var _x = 0; _x < width; ++_x) {
+				//sets the edge of the room to walls
 				if (_x == 0 || _x == width-1 || _y == 0 || _y == height-1) {
 					grid[# _x, _y] = 1;
 				} else {
@@ -45,11 +48,12 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 		}
 		log("'RandomFillMap' script finished......");
 	}
-		
+	
+	//smooths map to make the the map look like a cave
 	static smoothMap = function() {
 		
 		static getWallCount = function(_x, _y) {
-			var count = 0// ds_grid_get_sum(grid, _x-1, _y-1, _x+1, _y+1);
+			var count = 0;
 			
 			for (var neighbourX = (_x-1); neighbourX <= (_x+1); ++neighbourX) {
 			    for (var neighbourY = (_y-1); neighbourY <= (_y+1); ++neighbourY) {
@@ -79,6 +83,7 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 		}
 	}
 	
+	// Debug drawing grid
 	static drawMapGizmos = function() {
 		for (var _y = 0; _y < height; ++_y) {
 		    for (var _x = 0; _x < width; ++_x) {
@@ -94,7 +99,6 @@ function mapPrefab(_width, _height, _seed, _randPersent, _smoothCount) construct
 }
 
 //Basic log function
-
 function log(_string) {
 	show_debug_message(_string);	
 }
