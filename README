@@ -2,6 +2,7 @@ Generates caves from custom prefabs that save generation settings.
 
 With prefabs you can save the generation style.
 So you could do;
+
 ```
 caveGen		 = new mapPrefab(100, 100, -1, 45, 2);
 forestGen	 = new mapPrefab(50, 50, -1, 30, 3);
@@ -20,11 +21,11 @@ You just have to change the seed from -1, to the selected seed, like this;
 
 ```
 demoCaveGen = new mapPrefab(100, 100, 738465, 45, 2);
- ``` 
+```
 to access the maps grid all you have to do is;
 ```
 curMap.grid[# _x, _y];
- ``` 
+``` 
 Or you could set up a macro like;
 ```
 #macro curGrid curMap.grid
